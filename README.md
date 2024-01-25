@@ -1,30 +1,78 @@
-# React + TypeScript + Vite
+# How it work. 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+- check `app.tsx` inside src folder. 
+- the code of app.tsx is here for convinient. 
+- app.css is used for class 
+- and we use className instead of class in react 
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+import { useEffect, useState } from "react";
+import "./App.css";
+
+function App() {
+  const [time, setTime] = useState({
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+
+  useEffect(() => {
+    const intercalId = setInterval(() => {
+      const now = new Date();
+      setTime({
+        hours: now.getHours() % 12 || 12,
+        minutes: now.getMinutes(),
+        seconds: now.getSeconds(),
+      });
+    }, 1000);
+    return () => clearInterval(intercalId);
+  }, []);
+
+  return (
+    <>
+      <main>
+        <div
+          className="hours"
+          style={{
+            transform: `rotateZ(${time.hours * 30}deg)`,
+          }}
+        >
+          <p>{time.hours}</p>
+          <p>{time.hours}</p>
+          <p>{time.hours}</p>
+        </div>
+        <div
+          className="minutes"
+          style={{
+            transform: `rotateZ(${time.minutes * 6}deg)`,
+          }}
+        >
+          <p>{time.minutes}</p>
+          <p>{time.minutes}</p>
+          <p>{time.minutes}</p>
+          <p>{time.minutes}</p>
+          <p>{time.minutes}</p>
+        </div>
+        <div
+          className="seconds"
+          style={{ transform: `rotateZ(${time.seconds * 6}deg)` }}
+        >
+          <p>{time.seconds}</p>
+          <p>{time.seconds}</p>
+          <p>{time.seconds}</p>
+          <p>{time.seconds}</p>
+          <p>{time.seconds}</p>
+          <p>{time.seconds}</p>
+        </div>
+      </main>
+    </>
+  );
+}
+
+export default App;
+```
+
+- check from `return ()`
+- inside it is JSX similar to html
+- we get time from Date() function. 
+- we update the css inside the React using style = {{ transform: `rotateZ()`}}
